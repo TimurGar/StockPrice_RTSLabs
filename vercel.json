@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "client/dist",
   "routes": [
     {
       "src": "/api/(.*)",
@@ -8,19 +10,9 @@
     {
       "handle": "filesystem"
     },
-    { 
-      "src": "/404", 
-      "dest": "/client/dist/index.html" 
-    },
-    {
-      "src": "/(sign-in|sign-up|home)(.*)",
-      "dest": "/client/dist/index.html"
-    },
     {
       "src": "/(.*)",
-      "dest": "/client/dist/index.html"
+      "dest": "/index.html"
     }
-  ],
-  "buildCommand": "npm run build",
-  "outputDirectory": "client/dist"
+  ]
 }
