@@ -2,6 +2,10 @@
 
 A full-stack web application that allows users to sign up, log in, and search for real-time stock prices using the Finnhub API.
 
+## Live Demo
+
+**Deployed Application:** [https://stock-price-rts-labs.vercel.app/](https://stock-price-rts-labs.vercel.app/)
+
 ## Features
 
 - **User Authentication**: Secure signup/login with JWT tokens and bcrypt password hashing
@@ -165,4 +169,3 @@ StockPrice_RTSLabs/
 ├── package.json
 └── README.md
 ```
-

@@ -4,7 +4,7 @@ import { verifyToken } from "../utils/verifyUser.js";
 
 const router = express.Router();
 
-// Protect the stock route only authenticated users can access
+// GET /api/stock/quote - Fetch stock price data (protected route)
 router.get("/quote", verifyToken, getStockQuote);
 
 export default router;

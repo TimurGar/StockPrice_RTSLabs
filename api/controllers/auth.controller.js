@@ -31,26 +31,37 @@ export const signup = async (req, res, next) => {
   }
 };
 
+// User login handler
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
+    // Find user by email
     const validUser = await User.findOne({ email });
     if (!validUser) return next(errorHandler(404, "User not found"));
+
+    // Verify password using bcrypt
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, "Wrong credential"));
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+
+    // Generate JWT token for authentication (expires in 2 days)
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "2d",
+    });
+
+    // Remove password from response
     const { password: pass, ...rest } = validUser._doc;
 
-    // Calculate the expiration date (2 years from now)
-    const twoYears = 2 * 365 * 24 * 60 * 60 * 1000; // Two years in milliseconds
+    // Calculate the expiration date (2 days from now)
+    const twoDays = 2 * 24 * 60 * 60 * 1000;
 
+    // Set secure HTTP-only cookie with JWT token
     res
       .cookie("access_token", token, {
-        httpOnly: true,
-        maxAge: twoYears,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+        httpOnly: true, // Prevents XSS attacks
+        maxAge: twoDays,
+        sameSite: "strict", // CSRF protection
+        secure: process.env.NODE_ENV === "production", // HTTPS only in production
       })
       .status(200)
       .json(rest);
@@ -59,6 +70,7 @@ export const signin = async (req, res, next) => {
   }
 };
 
+// User logout handler - clears authentication cookie
 export const signout = async (req, res, next) => {
   try {
     res.clearCookie("access_token");

@@ -96,6 +96,16 @@ export default function Home() {
             </button>
           </form>
 
+          {/* Logout button */}
+          <div className="flex justify-end mt-2">
+            <button
+              onClick={handleSignOut}
+              className="text-sm px-4 py-1 text-neutral-600 hover:text-neutral-800 transition-colors"
+            >
+              Sign Out
+            </button>
+          </div>
+
           {error && (
             <div className="mt-4 bg-red-50 border border-red-200 rounded-lg p-4">
               <p className="text-red-800 text-sm font-medium">{error}</p>
@@ -109,12 +119,13 @@ export default function Home() {
               </h3>
               <div className="space-y-1">
                 <p className="text-sm text-blue-800">
-                  <span className="font-medium">Current Price:</span> $
-                  {stockData.currentPrice}
-                </p>
-                <p className="text-sm text-blue-800">
                   <span className="font-medium">Opening Price:</span> $
                   {stockData.openPrice}
+                </p>
+                <hr className="my-3 border-blue-300" />
+                <p className="text-sm text-blue-800">
+                  <span className="font-medium">Current Price:</span> $
+                  {stockData.currentPrice}
                 </p>
                 <p className="text-sm text-blue-800">
                   <span className="font-medium">High:</span> $
@@ -127,15 +138,6 @@ export default function Home() {
               </div>
             </div>
           )}
-        </div>
-
-        <div className="max-w-md w-full mx-auto mt-4">
-          <button
-            onClick={handleSignOut}
-            className="w-full px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Sign Out
-          </button>
         </div>
       </div>
     </div>
