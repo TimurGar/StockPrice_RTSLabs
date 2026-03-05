@@ -19,7 +19,6 @@ export const signup = async (req, res, next) => {
 
   try {
     // await will stay on the line until the new user is added
-    //(we had to change the signup function to async)
     await newUser.save();
     res.status(201).json("User created successfully");
   } catch (error) {
